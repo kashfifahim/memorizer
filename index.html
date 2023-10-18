@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Memorizer</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div id="app">
+        <h1>Memorizer: Memorization Helper</h1>
+
+        <div id="input-section">
+            <textarea placeholder="Enter lines to memorize"></textarea>
+            <button id="start">Start Memorizer</button>
+        </div>
+
+        <div id="memorization-section" hidden>
+            <div id="display-area">
+                <p id="target-text"></p>
+            </div>
+            <input type="text" id="user-input" placeholder="Start typing here . . .">
+            <div id="progress">
+                <span id="repetition-counter">1/10</span>
+                <button id="next" disabled>Next Line</button>
+            </div>
+        </div>
+    </div>
+    <script src="app.js"></script>
+</body>
+</html>
