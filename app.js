@@ -40,7 +40,7 @@ document.getElementById('start').addEventListener('click', function() {
             }
 
             if (currentLineIndex >= lines.length) {
-                alert('Congratulations! You ahve completed all lines.');
+                alert('Congratulations! You have completed all lines.');
                 location.reload();
                 return;
             }
