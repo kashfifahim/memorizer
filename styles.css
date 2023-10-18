@@ -28,3 +28,12 @@ textarea {
     align-items: center;
     margin-top: 20px;
 }
+
+#attribution {
+    background-color: #f9f9f9; 
+    padding: 20px; 
+    text-align: center; 
+    border-top: 1px solid #e1e1e1; 
+    font-size: 14px; 
+    margin-top: 50px;
+}
