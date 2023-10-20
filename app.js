@@ -5,6 +5,7 @@ document.getElementById('start').addEventListener('click', function() {
     const targetTextElement = document.getElementById('target-text');
     const repetitionCounter = document.getElementById('repetition-counter');
     const nextButton = document.getElementById('next');
+    const prevButton = document.getElementById('prev');
 
     let lines = document.querySelector('textarea').value.split('\n');
     lines = lines.filter(line => line.trim() !== '');
@@ -12,7 +13,7 @@ document.getElementById('start').addEventListener('click', function() {
     console.log(lines);
 
     if (lines.length === 0) {
-        alert('Please eneter text to memorize.');
+        alert('Please enter text to memorize.');
         return;
     }
 
@@ -24,6 +25,9 @@ document.getElementById('start').addEventListener('click', function() {
         repetitionCounter.textContent = `${repetitions+1}/10`;
         userInput.value = '';
         userInput.style.color = 'black';
+
+        prevButton.style.visibility = (currentLineIndex === 0) ? 'hidden' : 'visible';
+        nextButton.style.visibility = (currentLineIndex === lines.length - 1) ? 'hidden' : 'visible';
     }
 
     function checkInput() {
@@ -45,7 +49,7 @@ document.getElementById('start').addEventListener('click', function() {
                 return;
             }
 
-            setTimeout(setTargetText, 1000);
+            setTimeout(setTargetText, 500);
         } else {
             const isCorrectSoFar = targetText.startsWith(userInputText);
             userInput.style.color = isCorrectSoFar ? 'black' : 'red';
@@ -53,10 +57,21 @@ document.getElementById('start').addEventListener('click', function() {
     }
 
     userInput.addEventListener('input', checkInput);
+
+    prevButton.addEventListener('click', function() {
+        if (currentLineIndex > 0) {
+            repetitions = 0;
+            currentLineIndex--;
+            setTargetText();
+        }
+    });
+
     nextButton.addEventListener('click', function() {
-        repetitions = 0;
-        currentLineIndex++;
-        setTargetText();
+        if (currentLineIndex < lines.length - 1) {
+            repetitions = 0;
+            currentLineIndex++;
+            setTargetText();
+        }
     });
 
     setTargetText();
