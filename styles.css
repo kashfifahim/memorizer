@@ -24,6 +24,7 @@ textarea {
 
 #display-area p {
     color: grey;
+    text-align: left;
 }
 
 #progress {
