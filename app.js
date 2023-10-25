@@ -1,3 +1,16 @@
+document.getElementById('fileInput').addEventListener('change', function(event) {
+    const file = event.target.files[0];
+    if (file) {
+        const reader = new FileReader();
+        reader.onload = function(fileEvent) {
+            const contents = fileEvent.target.result;
+            // You can now use the content of the file as needed in your application
+            document.querySelector('textarea').value = contents;
+        };
+        reader.readAsText(file);
+    }
+});
+
 document.getElementById('start').addEventListener('click', function() {
     const inputSection = document.getElementById('input-section');
     const memorizationSection = document.getElementById('memorization-section');
