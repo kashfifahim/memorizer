@@ -4,7 +4,6 @@ document.getElementById('fileInput').addEventListener('change', function(event) 
         const reader = new FileReader();
         reader.onload = function(fileEvent) {
             const contents = fileEvent.target.result;
-            // You can now use the content of the file as needed in your application
             document.querySelector('textarea').value = contents;
         };
         reader.readAsText(file);
@@ -12,6 +11,14 @@ document.getElementById('fileInput').addEventListener('change', function(event) 
 });
 
 document.getElementById('start').addEventListener('click', function() {
+    const modeElements = document.getElementsByName('mode');
+    let mode;
+    modeElements.forEach(element => {
+        if (element.checked) {
+            mode = element.value;
+        }
+    });
+
     const inputSection = document.getElementById('input-section');
     const memorizationSection = document.getElementById('memorization-section');
     const userInput = document.getElementById('user-input');
@@ -23,8 +30,6 @@ document.getElementById('start').addEventListener('click', function() {
     let lines = document.querySelector('textarea').value.split('\n');
     lines = lines.filter(line => line.trim() !== '');
 
-    console.log(lines);
-
     if (lines.length === 0) {
         alert('Please enter text to memorize.');
         return;
@@ -34,7 +39,15 @@ document.getElementById('start').addEventListener('click', function() {
     let repetitions = 0;
 
     function setTargetText() {
-        targetTextElement.textContent = lines[currentLineIndex];
+        let targetText;
+        if (mode === 'multi') {
+            targetText = lines.slice(currentLineIndex, currentLineIndex + 2).join('\n');
+            userInput.rows = 2;
+        } else {
+            targetText = lines[currentLineIndex];
+            userInput.rows = 1;
+        }
+        targetTextElement.textContent = targetText;
         repetitionCounter.textContent = `${repetitions+1}/10`;
         userInput.value = '';
         userInput.style.color = 'black';
@@ -45,7 +58,12 @@ document.getElementById('start').addEventListener('click', function() {
 
     function checkInput() {
         const userInputText = userInput.value;
-        const targetText = lines[currentLineIndex];
+        let targetText;
+        if (mode === 'multi') {
+            targetText = lines.slice(currentLineIndex, currentLineIndex + 2).join('\n');
+        } else {
+            targetText = lines[currentLineIndex];
+        }
 
         if (userInputText === targetText) {
             userInput.style.color = 'green';
@@ -53,7 +71,11 @@ document.getElementById('start').addEventListener('click', function() {
 
             if (repetitions >= 10) {
                 repetitions = 0;
-                currentLineIndex++;
+                if (mode === 'multi') {
+                    currentLineIndex += 2;
+                } else {
+                    currentLineIndex++;
+                }
             }
 
             if (currentLineIndex >= lines.length) {
