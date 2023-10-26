@@ -9,7 +9,11 @@
 <body>
     <div id="app">
         <h1>Memorizer</h1>
+        
         <div id="input-section">
+            <label><input type="radio" name="mode" value="single" checked> Single Line Mode</label>
+            <label><input type="radio" name="mode" value="multi"> Multi-Line Mode</label>
+        <p></p>
             <textarea placeholder="Enter lines to memorize"></textarea>
             <p id="load-message">Or load a text file from your computer
             <input type="file" id="fileInput" accept=".txt">
@@ -18,15 +22,12 @@
         </div>
 
         <div id="memorization-section" hidden>
-            <div id="display-area">
-                <p id="target-text"></p>
-            </div>
-            <input type="text" id="user-input" placeholder="Start typing here . . .">
-            <div id="progress">
-                <button id="prev">Previous Line</button>
-                <span id="repetition-counter">1/10</span>
-                <button id="next">Next Line</button>
-            </div>
+            <div id="target-text"></div>
+            <textarea id="user-input" placeholder="Start typing here ..."></textarea>
+            <!-- Depending on your styling, you might want to style this textarea to look like a single input line when in single-line mode. -->
+            <div id="repetition-counter">1/10</div>
+            <button id="prev">Previous Line</button>
+            <button id="next">Next Line</button>
         </div>
     </div>
     <div id="attribution">
