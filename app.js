@@ -44,8 +44,16 @@ document.getElementById('start').addEventListener('click', function() {
             let endIndex = lines.slice(currentLineIndex + 1).findIndex(line => line.trim() === '');
             endIndex = (endIndex !== -1) ? currentLineIndex + endIndex + 1 : lines.length;
             targetTextElement.textContent = lines.slice(currentLineIndex, endIndex).join('\n');
+            // Hide the Next and Previous buttons
+            prevButton.style.display = 'none';
+            nextButton.style.display = 'none';
         } else {
             targetTextElement.textContent = lines[currentLineIndex];
+            // Show the Next and Previous buttons
+            prevButton.style.display = 'block';
+            nextButton.style.display = 'block';
+            prevButton.style.visibility = (currentLineIndex === 0) ? 'hidden' : 'visible';
+            nextButton.style.visibility = (currentLineIndex === lines.length - 1) ? 'hidden' : 'visible';
         }
         repetitionCounter.textContent = `${repetitions+1}/10`;
         userInput.value = '';
@@ -72,7 +80,8 @@ document.getElementById('start').addEventListener('click', function() {
             userInput.style.color = 'green';
             repetitions++;
     
-            if (repetitions >= repetitionCounter) {
+            if (repetitions >= 10) {   // Ensure you're comparing against the number 10, not repetitionCounter element
+                alert('You have practiced this line/section 10 times! Well done.');
                 repetitions = 0;
                 if (mode === 'multi') {
                     // Move to the next chunk after the blank line.
