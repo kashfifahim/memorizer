@@ -8,16 +8,13 @@
 </head>
 <body>
     <div id="app">
-        <h1>Memorizer</h1>
+        <h1><a href="index.html">Memorizer</a></h1>
         
         <div id="input-section">
+            <textarea placeholder="Enter lines to memorize"></textarea>
             <label><input type="radio" name="mode" value="single" checked> Single Line Mode</label>
             <label><input type="radio" name="mode" value="multi"> Multi-Line Mode</label>
-        <p></p>
-            <textarea placeholder="Enter lines to memorize"></textarea>
-            <p id="load-message">Or load a text file from your computer
-            <input type="file" id="fileInput" accept=".txt">
-            </p>
+            <p id="load-message">Or load a text file from your computer <input type="file" id="fileInput" accept=".txt"></p>
             <button id="start">Start Memorizer</button>
         </div>
 
