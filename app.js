@@ -39,19 +39,18 @@ document.getElementById('start').addEventListener('click', function() {
     let repetitions = 0;
 
     function setTargetText() {
-        let targetText;
         if (mode === 'multi') {
-            targetText = lines.slice(currentLineIndex, currentLineIndex + 2).join('\n');
-            userInput.rows = 2;
+            // Find the next blank line or end of the text.
+            let endIndex = lines.slice(currentLineIndex + 1).findIndex(line => line.trim() === '');
+            endIndex = (endIndex !== -1) ? currentLineIndex + endIndex + 1 : lines.length;
+            targetTextElement.textContent = lines.slice(currentLineIndex, endIndex).join('\n');
         } else {
-            targetText = lines[currentLineIndex];
-            userInput.rows = 1;
+            targetTextElement.textContent = lines[currentLineIndex];
         }
-        targetTextElement.textContent = targetText;
         repetitionCounter.textContent = `${repetitions+1}/10`;
         userInput.value = '';
         userInput.style.color = 'black';
-
+    
         prevButton.style.visibility = (currentLineIndex === 0) ? 'hidden' : 'visible';
         nextButton.style.visibility = (currentLineIndex === lines.length - 1) ? 'hidden' : 'visible';
     }
@@ -59,31 +58,37 @@ document.getElementById('start').addEventListener('click', function() {
     function checkInput() {
         const userInputText = userInput.value;
         let targetText;
+    
         if (mode === 'multi') {
-            targetText = lines.slice(currentLineIndex, currentLineIndex + 2).join('\n');
+            // Find the next blank line or end of the text.
+            let endIndex = lines.slice(currentLineIndex + 1).findIndex(line => line.trim() === '') + 1;
+            endIndex = (endIndex > 0) ? currentLineIndex + endIndex : lines.length;
+            targetText = lines.slice(currentLineIndex, endIndex).join('\n');
         } else {
             targetText = lines[currentLineIndex];
         }
-
+    
         if (userInputText === targetText) {
             userInput.style.color = 'green';
             repetitions++;
-
-            if (repetitions >= 10) {
+    
+            if (repetitions >= repetitionCounter) {
                 repetitions = 0;
                 if (mode === 'multi') {
-                    currentLineIndex += 2;
+                    // Move to the next chunk after the blank line.
+                    let endIndex = lines.slice(currentLineIndex + 1).findIndex(line => line.trim() === '') + 1;
+                    currentLineIndex = (endIndex > 0) ? currentLineIndex + endIndex : lines.length;
                 } else {
                     currentLineIndex++;
                 }
             }
-
+    
             if (currentLineIndex >= lines.length) {
                 alert('Congratulations! You have completed all lines.');
                 location.reload();
                 return;
             }
-
+    
             setTimeout(setTargetText, 500);
         } else {
             const isCorrectSoFar = targetText.startsWith(userInputText);

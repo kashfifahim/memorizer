@@ -62,3 +62,11 @@ button:hover {
     font-size: 14px; 
     margin-top: 50px;
 }
+
+#target-text {
+    white-space: pre-line;
+    text-align: left;
+    padding-bottom: 10px;
+    /* font-family: 'Courier New', Courier, monospace; */
+    font-size: large;
+}
