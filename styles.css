@@ -64,7 +64,7 @@ button:hover {
 }
 
 #target-text {
-    white-space: pre-line;
+    white-space: pre-wrap;
     text-align: left;
     padding-bottom: 10px;
     /* font-family: 'Courier New', Courier, monospace; */
