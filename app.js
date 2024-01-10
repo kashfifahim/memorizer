@@ -10,6 +10,20 @@ document.getElementById('fileInput').addEventListener('change', function(event) 
     }
 });
 
+document.querySelector('textarea').addEventListener('keydown', function (e) {
+    if (e.key === 'Tab') {
+        e.preventDefault();
+        const numberOfSpaces = 4; // Change this value as needed
+        const start = this.selectionStart;
+        const end = this.selectionEnd;
+        const value = this.value;
+        const spaces = ' '.repeat(numberOfSpaces);
+        this.value = value.substring(0, start) + spaces + value.substring(end);
+        this.selectionStart = this.selectionEnd = start + numberOfSpaces;
+    }
+});
+
+
 document.getElementById('start').addEventListener('click', function() {
     const modeElements = document.getElementsByName('mode');
     let mode;
