@@ -142,3 +142,13 @@ document.getElementById('start').addEventListener('click', function() {
     memorizationSection.hidden = false;
     userInput.focus();
 });
+
+// Function to toggle dark mode
+function toggleDarkMode() {
+    const body = document.body;
+    const app = document.getElementById('app');
+    body.classList.toggle('dark-mode');
+    app.classList.toggle('dark-mode');
+}
+
+document.getElementById('darkModeToggle').addEventListener('click', toggleDarkMode);
